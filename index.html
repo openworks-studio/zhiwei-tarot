@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#19221e">
+  <meta name="description" content="今日三时与一念决事，两种轻量塔罗指引。无需登录，所有抽牌均在本地完成。">
+  <title>知微 · 塔罗时笺</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="知微首页">
+        <span class="brand-seal" aria-hidden="true">微</span>
+        <span class="brand-copy"><strong>知微</strong><small>TAROT NOTES</small></span>
+      </a>
+      <button class="about-button" id="about-button" type="button" aria-label="关于本页" title="关于本页">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.2"></path></svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="intro-text">
+          <p class="eyebrow"><span></span>一问一念 · 随机抽取</p>
+          <h1 id="intro-title">给此刻的困惑，<br><em>留一张答案。</em></h1>
+          <p>不替你做决定，只帮你听见心底已经存在的声音。</p>
+        </div>
+        <div class="intro-orbit" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit-core">✦</div>
+          <span class="orbit-star star-a">·</span>
+          <span class="orbit-star star-b">✦</span>
+          <span class="orbit-star star-c">·</span>
+        </div>
+      </section>
+
+      <nav class="mode-switch" aria-label="选择占卜方式">
+        <button class="mode-button is-active" type="button" data-mode="daily" aria-selected="true">
+          <span class="mode-icon">☼</span>
+          <span><strong>今日三时</strong><small>看见一天的流动</small></span>
+        </button>
+        <button class="mode-button" type="button" data-mode="decision" aria-selected="false">
+          <span class="mode-icon">◇</span>
+          <span><strong>一念决事</strong><small>回应一件小事</small></span>
+        </button>
+      </nav>
+
+      <section class="reading-panel" id="reading-panel" aria-live="polite">
+        <div class="reading-copy">
+          <p class="section-index" id="mode-index">01 / TIME FLOW</p>
+          <h2 id="mode-title">今日三时</h2>
+          <p id="mode-description">默念今天最在意的问题，从牌阵中依次选出三张牌。它们将回应事情的缘起、当下与走向。</p>
+        </div>
+
+        <div class="question-box">
+          <label for="question-input" id="question-label">把问题轻轻写在这里</label>
+          <div class="question-control">
+            <textarea id="question-input" rows="2" maxlength="60" placeholder="例如：今天的工作推进会顺利吗？"></textarea>
+            <span id="question-count">0 / 60</span>
+          </div>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"></path><circle cx="12" cy="12" r="4"></circle></svg>问题只保存在当前页面，不会上传</p>
+        </div>
+
+        <div class="ritual-block" id="ritual-block">
+          <div class="ritual-heading">
+            <span id="ritual-step">第一步</span>
+            <h3 id="ritual-title">静心，然后开始洗牌</h3>
+            <p id="ritual-copy">深呼吸一次，在心里重复你的问题。准备好后，让牌面展开。</p>
+          </div>
+          <button id="shuffle-button" class="primary-button" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h3c4 0 5 10 9 10h6"></path><path d="m18 14 3 3-3 3"></path><path d="M3 17h3c1.7 0 2.8-1.7 3.9-3.7"></path><path d="M14.1 8.7C15.2 7.7 16.4 7 18 7h3"></path><path d="m18 4 3 3-3 3"></path></svg>
+            <span>开始洗牌</span>
+          </button>
+        </div>
+
+        <div class="draw-stage" id="draw-stage" hidden>
+          <div class="draw-status">
+            <span id="draw-count">已选 0 / 3</span>
+            <strong id="draw-instruction">凭直觉选出第一张牌</strong>
+          </div>
+          <div class="deck" id="deck" aria-label="待抽取的塔罗牌"></div>
+        </div>
+
+        <section class="result-section" id="result-section" hidden aria-labelledby="result-heading">
+          <div class="result-heading">
+            <p class="section-index">YOUR READING</p>
+            <h2 id="result-heading">此刻的牌面</h2>
+            <p class="question-echo" id="question-echo"></p>
+          </div>
+          <div class="result-cards" id="result-cards"></div>
+          <article class="verdict" id="verdict">
+            <div class="verdict-mark" aria-hidden="true">签</div>
+            <div>
+              <span id="verdict-label">今日批语</span>
+              <h3 id="verdict-title"></h3>
+              <p id="verdict-copy"></p>
+            </div>
+          </article>
+          <div class="result-actions">
+            <button id="share-button" class="primary-button" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5"></path><path d="M5 13v7h14v-7"></path></svg>
+              <span>生成分享图</span>
+            </button>
+            <button id="restart-button" class="secondary-button" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 4v6h6"></path><path d="M5.5 15A7 7 0 1 0 6 7.5L4 10"></path></svg>
+              <span>再问一次</span>
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>牌面仅供自我觉察与娱乐参考，不构成医疗、法律、投资或其他专业建议。</p>
+      <span>78 张完整塔罗 · 本地随机抽取 · 不收集个人信息</span>
+    </footer>
+  </div>
+
+  <div class="modal" id="share-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="share-title">
+      <button class="icon-button modal-close" type="button" data-close-modal aria-label="关闭" title="关闭">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <p class="section-index">READING CARD</p>
+      <h2 id="share-title">保存你的时笺</h2>
+      <img id="share-preview" alt="本次塔罗结果分享图">
+      <canvas id="share-canvas" width="1080" height="1440" hidden></canvas>
+      <p class="save-hint">手机可长按图片保存，或点击下方按钮下载</p>
+      <button id="download-button" class="primary-button" type="button">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+        <span>下载结果图</span>
+      </button>
+    </section>
+  </div>
+
+  <div class="modal" id="about-modal" hidden>
+    <div class="modal-backdrop" data-close-about></div>
+    <section class="modal-dialog about-dialog" role="dialog" aria-modal="true" aria-labelledby="about-title">
+      <button class="icon-button modal-close" type="button" data-close-about aria-label="关闭" title="关闭">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <p class="section-index">ABOUT</p>
+      <h2 id="about-title">关于知微</h2>
+      <p>知微是一份轻量的自我觉察工具。抽牌结果由浏览器本地随机生成，不需要登录，也不会发送你输入的问题。</p>
+      <p>遇到健康、财务、安全或法律问题时，请优先咨询有资质的专业人士。</p>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="tarot-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
